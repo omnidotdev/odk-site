@@ -1,6 +1,12 @@
 /**
  * Environment variables.
  */
+// Build-time vars take precedence to prevent SSR hydration mismatch
+const env =
+  typeof window === "undefined"
+    ? { ...process.env, ...import.meta.env }
+    : import.meta.env;
+
 export const {
   // core
   VITE_BASE_URL: BASE_URL,
@@ -11,7 +17,7 @@ export const {
   AUTH_CLIENT_SECRET,
   // billing
   VITE_BILLING_BASE_URL: BILLING_BASE_URL,
-} = { ...import.meta.env, ...process.env };
+} = env;
 
 export const API_GRAPHQL_URL = `${API_BASE_URL}/graphql`;
 
