@@ -152,7 +152,10 @@ function OrgBillingPage() {
               <h2 className="mb-4 font-semibold text-lg">Plan Features</h2>
               <ul className="space-y-2">
                 {subscription.product.marketing_features.map((feature) => (
-                  <li key={feature.name} className="flex items-center gap-2 text-sm">
+                  <li
+                    key={feature.name}
+                    className="flex items-center gap-2 text-sm"
+                  >
                     <svg
                       className="h-4 w-4 text-green-500"
                       fill="none"
