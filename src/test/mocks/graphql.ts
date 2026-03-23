@@ -1,7 +1,8 @@
 import { HttpResponse } from "msw";
 
 import { mockUsersQuery } from "@/generated/graphql.mock";
-import { TEST_USER } from "./auth";
+
+const TEST_USER_ID = "test-user-id-12345";
 
 /**
  * GraphQL MSW handlers using generated mocks from GraphQL CodeGen.
@@ -13,8 +14,8 @@ export const graphqlHandlers = [
         users: {
           nodes: [
             {
-              id: TEST_USER.id,
-              identityProviderId: TEST_USER.id,
+              id: TEST_USER_ID,
+              identityProviderId: TEST_USER_ID,
             },
           ],
         },

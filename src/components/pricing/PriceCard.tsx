@@ -1,9 +1,7 @@
 import { Format } from "@ark-ui/react";
-import { useMutation } from "@tanstack/react-query";
-import { useNavigate, useRouteContext } from "@tanstack/react-router";
 import { CheckIcon } from "lucide-react";
-import { toast } from "sonner";
 
+import { ExternalLink } from "@/components/core";
 import { Button } from "@/components/ui/button";
 import {
   CardContent,
@@ -12,10 +10,8 @@ import {
   CardRoot,
   CardTitle,
 } from "@/components/ui/card";
-import authClient from "@/lib/auth/authClient";
 import { capitalizeFirstLetter } from "@/lib/util";
 import cn from "@/lib/utils";
-import { getCheckoutUrl } from "@/server/functions/subscriptions";
 
 import type { CardProps } from "@/components/ui/card";
 import type { Price } from "@/lib/providers/billing";
@@ -29,37 +25,6 @@ interface Props extends CardProps {
  * Price card.
  */
 const PriceCard = ({ price, className, disableAction, ...rest }: Props) => {
-  const { auth } = useRouteContext({ strict: false });
-  const navigate = useNavigate();
-
-  const { mutateAsync: signIn, isPending: isSignInPending } = useMutation({
-    mutationFn: async () =>
-      await authClient.signIn.oauth2({
-        providerId: "omni",
-        callbackURL: "/pricing",
-        disableRedirect: false,
-      }),
-  });
-
-  const { mutateAsync: checkout } = useMutation({
-    mutationFn: async (priceId: string) => {
-      const entityId = auth?.user.id;
-      if (!entityId) {
-        throw new Error("Not authenticated");
-      }
-
-      return getCheckoutUrl({
-        data: {
-          entityType: "user",
-          entityId,
-          priceId,
-        },
-      });
-    },
-    onSuccess: (url) => navigate({ href: url, reloadDocument: true }),
-    onError: (error) => toast.error(error.message),
-  });
-
   return (
     <CardRoot
       key={price.product.name}
@@ -96,15 +61,11 @@ const PriceCard = ({ price, className, disableAction, ...rest }: Props) => {
           )}
         </div>
 
-        {auth ? (
-          <Button disabled={disableAction} onClick={() => checkout(price.id)}>
+        <Button disabled={disableAction} asChild>
+          <ExternalLink href="https://omni.dev" variant="unstyled">
             Get Started
-          </Button>
-        ) : (
-          <Button disabled={isSignInPending} onClick={() => signIn()}>
-            Get Started
-          </Button>
-        )}
+          </ExternalLink>
+        </Button>
       </CardHeader>
 
       <CardContent className="p-4">

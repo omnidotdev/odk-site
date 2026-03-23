@@ -1,16 +1,10 @@
-import { createServerFn } from "@tanstack/react-start";
 import { parse } from "graphql";
 import { GraphQLClient, gql } from "graphql-request";
 
 import { API_GRAPHQL_URL } from "@/lib/config/env.config";
-import { authMiddleware } from "@/server/middleware";
 
 import type { TypedDocumentNode } from "@graphql-typed-document-node/core";
 import type { Variables } from "graphql-request";
-
-const getAccessToken = createServerFn()
-  .middleware([authMiddleware])
-  .handler(async ({ context }) => context.session.accessToken);
 
 interface FetchOptions {
   /**
@@ -31,14 +25,11 @@ export const graphqlFetch =
     options?: (HeadersInit & FetchOptions) | FetchOptions,
   ) =>
   async (): Promise<TData> => {
-    const accessToken = await getAccessToken();
-
     const { cache, ...restOptions } = options || {};
 
     const client = new GraphQLClient(API_GRAPHQL_URL, {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
         ...restOptions,
       },
       cache,

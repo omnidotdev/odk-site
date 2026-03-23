@@ -1,29 +1,9 @@
-import { MenuRootProvider, useMenu } from "@ark-ui/react";
-import { useMutation } from "@tanstack/react-query";
-import { useLocation, useRouteContext } from "@tanstack/react-router";
+import { useLocation } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 
 import { InternalLink } from "@/components/core";
 import { ThemeToggle } from "@/components/layout";
-import {
-  AvatarFallback,
-  AvatarImage,
-  AvatarRoot,
-} from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
-import {
-  MenuContent,
-  MenuItem,
-  MenuItemGroup,
-  MenuItemGroupLabel,
-  MenuItemText,
-  MenuPositioner,
-  MenuSeparator,
-  MenuTrigger,
-} from "@/components/ui/menu";
-import authClient from "@/lib/auth/authClient";
-import signOut from "@/lib/auth/signOut";
 import app from "@/lib/config/app.config";
 import cn from "@/lib/utils";
 
@@ -38,10 +18,8 @@ const navLinks = [
  * Layout header with anchor nav and mobile hamburger.
  */
 const Header = () => {
-  const { auth } = useRouteContext({ strict: false });
   const location = useLocation();
 
-  const accountMenu = useMenu();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -69,20 +47,6 @@ const Header = () => {
     },
     [location.pathname],
   );
-
-  const { mutateAsync: signIn, isPending: isSignInPending } = useMutation({
-    mutationFn: async () =>
-      await authClient.signIn.oauth2({
-        providerId: "omni",
-        callbackURL: location.pathname,
-        disableRedirect: false,
-      }),
-  });
-
-  const handleSignOut = async () => {
-    accountMenu.api.setOpen(false);
-    await signOut();
-  };
 
   return (
     <header
@@ -123,53 +87,6 @@ const Header = () => {
           {/* Right side */}
           <div className="flex items-center gap-4">
             <ThemeToggle />
-
-            {auth ? (
-              <MenuRootProvider value={accountMenu}>
-                <MenuTrigger className="rounded-full">
-                  <AvatarRoot>
-                    <AvatarImage src={auth.user.image ?? undefined} />
-                    <AvatarFallback>{auth.user.name.charAt(0)}</AvatarFallback>
-                  </AvatarRoot>
-                </MenuTrigger>
-
-                <MenuPositioner>
-                  <MenuContent className="min-w-48">
-                    <MenuItemGroup>
-                      <MenuItemGroupLabel>My Account</MenuItemGroupLabel>
-
-                      <MenuItem value="profile" asChild>
-                        <InternalLink
-                          to="/profile"
-                          variant="unstyled"
-                          className="justify-start"
-                        >
-                          <MenuItemText>Profile</MenuItemText>
-                        </InternalLink>
-                      </MenuItem>
-                    </MenuItemGroup>
-
-                    <MenuSeparator />
-
-                    <Button
-                      variant="destructive"
-                      onClick={handleSignOut}
-                      tabIndex={-1}
-                    >
-                      Sign Out
-                    </Button>
-                  </MenuContent>
-                </MenuPositioner>
-              </MenuRootProvider>
-            ) : (
-              <Button
-                onClick={() => signIn()}
-                disabled={isSignInPending}
-                className="hidden md:inline-flex"
-              >
-                Sign In
-              </Button>
-            )}
 
             {/* Mobile hamburger */}
             <button
@@ -212,16 +129,6 @@ const Header = () => {
               >
                 Pricing
               </InternalLink>
-
-              {!auth && (
-                <Button
-                  onClick={() => signIn()}
-                  disabled={isSignInPending}
-                  className="mt-2"
-                >
-                  Sign In
-                </Button>
-              )}
             </div>
           </nav>
         )}

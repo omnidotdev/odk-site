@@ -3,9 +3,6 @@ import type { KnipConfig } from "knip";
 /**
  * Knip configuration.
  * @see https://knip.dev/overview/configuration
- *
- * NOTE: Many lib files are intentionally unused in the template.
- * They serve as reference patterns for Omni products to adopt.
  */
 const knipConfig: KnipConfig = {
   entry: [
@@ -22,23 +19,12 @@ const knipConfig: KnipConfig = {
   // used for proper management of Thornberry components, see https://knip.dev/reference/configuration#ignoreexportsusedinfile
   ignoreExportsUsedInFile: true,
   ignore: [
-    "**/*.gen.*",
     "**/generated/**",
     "src/test/**",
-    "src/__tests__/**",
     "**/*.test.{ts,tsx}",
     // Reference patterns - unused in template but available for adoption
-    "src/components/profile/ManageBilling.tsx",
-    "src/lib/aether/**",
-    "src/lib/warden/**",
-    "src/lib/context/organization.context.tsx",
-    "src/lib/context/workspace.context.tsx",
-    "src/server/functions/authorization.ts",
-    "src/server/functions/entitlements.ts",
-    // exports consumed by ignored reference pattern modules (warden, aether)
     "src/lib/config/env.config.ts",
-    // depends on graphql-codegen output that doesn't exist in template
-    "src/options/users.options.ts",
+    "src/lib/providers/**",
   ],
   ignoreDependencies: [
     "dotenv",
@@ -49,7 +35,6 @@ const knipConfig: KnipConfig = {
     "@testing-library/react",
     "happy-dom",
   ],
-  tags: ["-knipignore"],
 };
 
 export default knipConfig;
