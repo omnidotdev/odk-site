@@ -36,15 +36,6 @@ interface RenderWithProvidersOptions extends Omit<RenderOptions, "wrapper"> {
   initialRoute?: string;
   /** Pre-configured QueryClient instance */
   queryClient?: QueryClient;
-  /** Auth context to inject */
-  auth?: {
-    user: {
-      id: string;
-      email: string;
-      name: string;
-      image: string | null;
-    };
-  } | null;
 }
 
 /**
@@ -57,14 +48,12 @@ export const renderWithProviders = (
   const {
     initialRoute = "/",
     queryClient = createTestQueryClient(),
-    auth = null,
     ...renderOptions
   } = options;
 
   // Create a simple root route for testing
   const rootRoute = createRootRoute({
     component: () => ui,
-    context: () => ({ auth }),
   });
 
   const indexRoute = createRoute({
@@ -82,7 +71,6 @@ export const renderWithProviders = (
   const router = createRouter({
     routeTree,
     history: memoryHistory,
-    context: { auth },
   });
 
   const Wrapper = (_props: WrapperProps) => (
