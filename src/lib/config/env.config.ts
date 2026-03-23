@@ -17,6 +17,9 @@ export const {
   AUTH_CLIENT_SECRET,
   // billing
   VITE_BILLING_BASE_URL: BILLING_BASE_URL,
+  // authorization (consumed by warden client)
+  AUTHZ_ENABLED,
+  AUTHZ_API_URL,
 } = env;
 
 export const API_GRAPHQL_URL = `${API_BASE_URL}/graphql`;

@@ -78,4 +78,5 @@ const DataTable = <T,>({ table, ...rest }: Props<T>) => (
   </Table>
 );
 
+/** @knipignore - Exported for downstream use */
 export default DataTable;

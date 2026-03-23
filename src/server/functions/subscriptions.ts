@@ -34,7 +34,7 @@ export const getSubscription = createServerFn()
     return billing.getSubscription(
       data.entityType,
       data.entityId,
-      context.session.accessToken!,
+      context.session.accessToken ?? "",
     );
   });
 
@@ -48,7 +48,7 @@ export const getCheckoutUrl = createServerFn({ method: "POST" })
     return billing.createCheckoutSession({
       priceId: data.priceId,
       successUrl: data.successUrl ?? `${BASE_URL}/pricing`,
-      customerEmail: context.session.user.email!,
+      customerEmail: context.session.user.email ?? "",
       customerName: context.session.user.name ?? undefined,
       metadata: {
         entityType: data.entityType,
@@ -70,7 +70,7 @@ export const getBillingPortalUrl = createServerFn({ method: "POST" })
       data.entityId,
       app.name.toLowerCase(),
       data.returnUrl ?? `${BASE_URL}/profile`,
-      context.session.accessToken!,
+      context.session.accessToken ?? "",
     );
   });
 
@@ -84,12 +84,13 @@ export const cancelSubscription = createServerFn({ method: "POST" })
     return billing.cancelSubscription(
       data.entityType,
       data.entityId,
-      context.session.accessToken!,
+      context.session.accessToken ?? "",
     );
   });
 
 /**
  * Renew a subscription (remove scheduled cancellation).
+ * @knipignore - Exported for downstream use
  */
 export const renewSubscription = createServerFn({ method: "POST" })
   .inputValidator((data) => subscriptionSchema.parse(data))
@@ -98,6 +99,6 @@ export const renewSubscription = createServerFn({ method: "POST" })
     return billing.renewSubscription(
       data.entityType,
       data.entityId,
-      context.session.accessToken!,
+      context.session.accessToken ?? "",
     );
   });

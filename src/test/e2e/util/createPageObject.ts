@@ -7,26 +7,28 @@ export interface PageObjectContext {
   context: BrowserContext;
 }
 
-interface Params<D extends object> extends PageObjectContext {
+interface BaseParams extends PageObjectContext {
   /** Name of page object. */
   name: string;
   /** URL to navigate to. */
   baseUrl: string;
-  /** Additional, per-context data. */
-  metadata?: D;
 }
 
-interface PageObject<D extends object> extends Params<D> {
-  /** Navigate to page object's base URL. */
-  goto: () => Promise<void>;
-}
+type Params<D extends Record<string, unknown> = Record<string, unknown>> =
+  BaseParams & D;
+
+type PageObject<D extends Record<string, unknown> = Record<string, unknown>> =
+  Params<D> & {
+    /** Navigate to page object's base URL. */
+    goto: () => Promise<void>;
+  };
 
 /**
  * Create a page object based on the [Page Object Model (POM) Pattern](https://martinfowler.com/bliki/PageObject.html).
  *
  * @see https://playwright.dev/docs/pom
  */
-const createPageObject = <D extends object>({
+const createPageObject = <D extends Record<string, unknown>>({
   name,
   page,
   context,
@@ -40,7 +42,7 @@ const createPageObject = <D extends object>({
   goto: async () => {
     await page.goto(baseUrl);
   },
-  ...rest,
+  ...(rest as unknown as D),
 });
 
 export default createPageObject;

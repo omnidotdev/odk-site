@@ -14,7 +14,8 @@
     "types": [
       "vite/client",
       // enable Serwist to properly type `virtual:serwist`
-      "@serwist/vite/typings"
+      "@serwist/vite/typings",
+      "@types/bun"
     ],
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,

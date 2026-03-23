@@ -35,10 +35,12 @@ const knipConfig: KnipConfig = {
     "src/lib/context/workspace.context.tsx",
     "src/server/functions/authorization.ts",
     "src/server/functions/entitlements.ts",
+    // exports consumed by ignored reference pattern modules (warden, aether)
+    "src/lib/config/env.config.ts",
+    // depends on graphql-codegen output that doesn't exist in template
+    "src/options/users.options.ts",
   ],
   ignoreDependencies: [
-    // GitHub dep not resolvable by knip
-    "@omnidotdev/providers",
     "dotenv",
     "@faker-js/faker",
     "@happy-dom/global-registrator",

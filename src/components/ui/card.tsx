@@ -100,6 +100,7 @@ const Card = ({
   </CardRoot>
 );
 
+/** @knipignore - Exported for downstream use */
 export {
   Card,
   CardRoot,

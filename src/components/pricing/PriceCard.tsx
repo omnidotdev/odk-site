@@ -17,8 +17,8 @@ import { capitalizeFirstLetter } from "@/lib/util";
 import cn from "@/lib/utils";
 import { getCheckoutUrl } from "@/server/functions/subscriptions";
 
-import type { Price } from "@/lib/providers/billing";
 import type { CardProps } from "@/components/ui/card";
+import type { Price } from "@/lib/providers/billing";
 
 interface Props extends CardProps {
   price: Price;
@@ -43,14 +43,15 @@ const PriceCard = ({ price, className, disableAction, ...rest }: Props) => {
 
   const { mutateAsync: checkout } = useMutation({
     mutationFn: async (priceId: string) => {
-      if (!auth?.user.identityProviderId) {
+      const entityId = auth?.user.id;
+      if (!entityId) {
         throw new Error("Not authenticated");
       }
 
       return getCheckoutUrl({
         data: {
           entityType: "user",
-          entityId: auth.user.identityProviderId,
+          entityId,
           priceId,
         },
       });

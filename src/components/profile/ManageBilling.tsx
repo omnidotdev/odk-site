@@ -3,7 +3,7 @@ import { useNavigate } from "@tanstack/react-router";
 import { SettingsIcon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { getManageBillingUrl } from "@/server/functions/subscriptions";
+import { getBillingPortalUrl } from "@/server/functions/subscriptions";
 
 interface Props {
   workspaceId?: string;
@@ -21,9 +21,10 @@ const ManageBilling = ({ workspaceId }: Props) => {
       if (!workspaceId) {
         throw new Error("Workspace ID is required");
       }
-      return await getManageBillingUrl({
+      return await getBillingPortalUrl({
         data: {
-          workspaceId,
+          entityType: "workspace",
+          entityId: workspaceId,
           returnUrl: window.location.href,
         },
       });

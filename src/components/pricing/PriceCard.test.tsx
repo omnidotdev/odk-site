@@ -33,6 +33,7 @@ const mockPrice: Price = {
   active: true,
   currency: "usd",
   unit_amount: 2999,
+  metadata: {},
   product: {
     id: "prod_123",
     name: "Pro",

@@ -20,13 +20,17 @@ export const Route = createFileRoute("/_auth/dashboard")({
 function DashboardPage() {
   const { data } = useSuspenseQuery(usersOptions());
 
+  const usersData = data as { users?: { totalCount?: number } } | undefined;
+
   return (
     <div className="flex h-full flex-col items-center justify-center gap-2">
       <div className="flex items-center gap-2 p-2 text-xl">
         Hello from an Authenticated Route
       </div>
 
-      <p className="my-4">There are {data.users?.totalCount} total users.</p>
+      <p className="my-4">
+        There are {usersData?.users?.totalCount} total users.
+      </p>
     </div>
   );
 }
