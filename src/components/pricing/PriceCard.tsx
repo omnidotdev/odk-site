@@ -1,8 +1,8 @@
 import { Format } from "@ark-ui/react";
+import { Button } from "@omnidotdev/thornberry/button";
 import { CheckIcon } from "lucide-react";
 
 import { ExternalLink } from "@/components/core";
-import { Button } from "@/components/ui/button";
 import {
   CardContent,
   CardDescription,

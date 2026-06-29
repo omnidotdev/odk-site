@@ -1,8 +1,12 @@
 import { TabsRootProvider, useTabs } from "@ark-ui/react";
+import {
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@omnidotdev/thornberry/tabs";
 import { createFileRoute } from "@tanstack/react-router";
 
 import { FrequentlyAskedQuestions, PriceCard } from "@/components/pricing";
-import { TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getPrices } from "@/server/functions/prices";
 
 import type { Price } from "@/components/pricing";

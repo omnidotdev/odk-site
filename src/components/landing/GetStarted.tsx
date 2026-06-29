@@ -1,7 +1,7 @@
+import { Button } from "@omnidotdev/thornberry/button";
 import { ArrowRight } from "lucide-react";
 
 import CodeBlock from "@/components/core/CodeBlock";
-import { Button } from "@/components/ui/button";
 import useInView from "@/lib/hooks/useInView";
 import cn from "@/lib/utils";
 

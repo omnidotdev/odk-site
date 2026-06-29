@@ -1,3 +1,4 @@
+import { Button } from "@omnidotdev/thornberry/button";
 import { createFileRoute } from "@tanstack/react-router";
 import {
   ArrowRight,
@@ -13,7 +14,6 @@ import {
 import Ecosystem from "@/components/landing/Ecosystem";
 import GetStarted from "@/components/landing/GetStarted";
 import HowItWorks from "@/components/landing/HowItWorks";
-import { Button } from "@/components/ui/button";
 import useInView from "@/lib/hooks/useInView";
 import createMetaTags from "@/lib/util/createMetaTags";
 import cn from "@/lib/utils";
