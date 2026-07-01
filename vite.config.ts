@@ -21,7 +21,17 @@ const config = defineConfig(({ command }) => ({
     devtools(),
     // use `mkcert` in development
     command === "serve" && mkcert(),
-    nitroV2Plugin({ preset: "node-server" }),
+    nitroV2Plugin({
+      preset: "node-server",
+      routeRules: {
+        "/**": {
+          headers: {
+            "Permissions-Policy": "geolocation=(), camera=(), microphone=()",
+            "Cache-Control": "public, max-age=0, must-revalidate",
+          },
+        },
+      },
+    }),
     viteTsConfigPaths({
       projects: ["./tsconfig.json"],
     }),
