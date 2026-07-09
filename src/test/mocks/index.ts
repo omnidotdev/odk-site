@@ -1,1 +1,0 @@
-export { graphqlHandlers } from "./graphql";

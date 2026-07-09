@@ -22,7 +22,5 @@ export const {
   AUTHZ_API_URL,
 } = env;
 
-export const API_GRAPHQL_URL = `${API_BASE_URL}/graphql`;
-
 // environment helpers
 export const isDevEnv = import.meta.env.DEV;
