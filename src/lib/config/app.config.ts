@@ -3,6 +3,8 @@
  */
 const app = {
   name: "ODK - Omni Development Kit",
+  // Catalog symbol, mirrors the omni-api catalog SSOT
+  icon: "🇴",
   description:
     "Transform your data schema into a complete API ecosystem - Postgres schema, REST, GraphQL, and SDK generation in one seamless flow.",
   url: "https://odk.omni.dev",
@@ -20,6 +22,7 @@ const app = {
   },
   organization: {
     name: "Omni",
+    url: "https://omni.dev",
     supportEmailAddress: "support@omni.dev",
   },
   /** PWA configuration. Values should match public/manifest.json. */
