@@ -1,25 +1,11 @@
-import { Button } from "@omnidotdev/thornberry/button";
-import { Link } from "@tanstack/react-router";
+import { NotFoundPage } from "@omnidotdev/thornberry/not-found";
 
-import type { PropsWithChildren } from "react";
+import app from "@/lib/config/app.config";
 
 /**
- * 404 not found.
+ * 404 not found. Renders the shared Omni `<NotFoundPage>` (in-shell,
+ * theme-aware, prominent "404"), branded with ODK's wordmark. Home points at the app root.
  */
-const NotFound = ({ children }: PropsWithChildren) => (
-  <div className="flex min-h-screen w-full flex-col items-center justify-center gap-4 p-2">
-    <div className="text-6xl">404</div>
-
-    <div className="text-muted-foreground">
-      {children || <p>Page Not Found</p>}
-    </div>
-
-    <p className="flex flex-wrap items-center gap-2">
-      <Button onClick={() => window.history.back()}>Go back</Button>
-
-      <Link to="/">Go Home</Link>
-    </p>
-  </div>
-);
+const NotFound = () => <NotFoundPage appName={app.name} />;
 
 export default NotFound;
