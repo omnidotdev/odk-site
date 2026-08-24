@@ -10,7 +10,7 @@ import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 import { useEffect } from "react";
 import { Toaster, toast } from "sonner";
 
-import { ErrorBoundary, Footer, Header } from "@/components/layout";
+import { ErrorBoundary, Footer, Header, NotFound } from "@/components/layout";
 import app from "@/lib/config/app.config";
 import { isDevEnv } from "@/lib/config/env.config";
 import appCss from "@/lib/styles/globals.css?url";
@@ -120,6 +120,10 @@ export const Route = createRootRouteWithContext<{
   }),
   loader: () => getThemeServerFn(),
   errorComponent: ErrorBoundary,
+  // Render 404s in-shell: a thrown `notFound()` renders here inside RootDocument
+  // (globals + layout), not as a bare unstyled page. Pairs with the router's
+  // `defaultNotFoundComponent` for unmatched routes.
+  notFoundComponent: () => <NotFound />,
   component: RootComponent,
 });
 
