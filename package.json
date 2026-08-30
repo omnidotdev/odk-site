@@ -27,7 +27,6 @@
     "@faker-js/faker": "^10.2.0",
     "@happy-dom/global-registrator": "^20.0.11",
     "@playwright/test": "^1.57.0",
-    "@serwist/vite": "^9.5.0",
     "@tanstack/devtools-vite": "^0.4.0",
     "@tanstack/react-devtools": "0.9.0",
     "@tanstack/react-query-devtools": "^5.91.2",
@@ -44,7 +43,6 @@
     "happy-dom": "^20.0.11",
     "husky": "^9.1.7",
     "knip": "^5.80.0",
-    "serwist": "^9.5.0",
     "typescript": "^5.9.3",
     "vite": "^7.3.0",
     "vite-plugin-mkcert": "^1.17.9"
