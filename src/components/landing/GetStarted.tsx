@@ -2,50 +2,54 @@ import { Button } from "@omnidotdev/thornberry/button";
 import { ArrowRight } from "lucide-react";
 
 import CodeBlock from "@/components/core/CodeBlock";
+import app from "@/lib/config/app.config";
 import useInView from "@/lib/hooks/useInView";
 import cn from "@/lib/utils";
 
 const steps = [
   {
-    title: "Install & Initialize",
-    description: "Get up and running with a single command",
+    title: "Install the CLI",
+    description: "A single Rust binary, no runtime to manage",
     filename: "terminal",
     language: "bash",
-    code: `npm install -g @omnidotdev/odk
-odk init my-api-project
-cd my-api-project`,
-  },
-  {
-    title: "Define Your Schema",
-    description: "Describe your data model in TypeScript",
-    filename: "schema.ts",
-    language: "typescript",
-    code: `import { defineSchema } from "@omnidotdev/odk";
+    code: `cargo install odk-cli
 
-const schema = defineSchema({
-  User: {
-    id: "uuid",
-    name: "string",
-    email: "string @unique",
-  },
-  Post: {
-    id: "uuid",
-    title: "string",
-    author: "User @relation",
-  },
-});`,
+# optional SDKs
+bun add @omnidotdev/odk zod   # TypeScript
+pip install odk-pdk           # Python`,
   },
   {
-    title: "Generate & Run",
-    description: "Generate your entire API stack and start developing",
+    title: "Define your schema",
+    description:
+      "Describe your models once, in YAML (or TypeScript, Rust, or Python)",
+    filename: "schema.odk.yaml",
+    language: "yaml",
+    code: `version: "1.0"
+name: BlogAPI
+
+models:
+  User:
+    fields:
+      id: { type: string, format: uuid }
+      email: { type: string, format: email }
+      name: { type: string, optional: true }
+  Post:
+    fields:
+      id: { type: string, format: uuid }
+      title: string
+      authorId: { type: string, format: uuid }`,
+  },
+  {
+    title: "Emit your targets",
+    description:
+      "Compile to specs and schemas, or generate typed clients from a GraphQL schema",
     filename: "terminal",
     language: "bash",
-    code: `odk generate
-odk dev
+    code: `# OpenAPI + JSON Schema (default), Protobuf, Drizzle, ...
+odk compile schema.odk.yaml -o generated/
 
-# API running at http://localhost:3000
-# GraphQL at http://localhost:3000/graphql
-# Docs at http://localhost:3000/docs`,
+# typed models and clients
+odk generate schema.odk.yaml -t typescript,rust`,
   },
 ];
 
@@ -62,7 +66,7 @@ const GetStarted = () => {
           Get Started in Minutes
         </h2>
         <p className="mx-auto mb-16 max-w-2xl text-center text-lg text-muted-foreground">
-          Three steps to your first generated API
+          Three steps from a schema to generated artifacts
         </p>
 
         <div className="grid gap-8 md:grid-cols-3">
@@ -99,9 +103,11 @@ const GetStarted = () => {
         </div>
 
         <div className="mt-12 text-center">
-          <Button size="lg" className="group">
-            Read the Documentation
-            <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+          <Button size="lg" className="group" asChild>
+            <a href={`${app.docsUrl}/products/odk`}>
+              Read the Documentation
+              <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </a>
           </Button>
         </div>
       </div>

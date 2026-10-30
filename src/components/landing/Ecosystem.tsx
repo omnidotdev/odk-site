@@ -1,69 +1,69 @@
 import {
-  Activity,
-  Bell,
-  Lock,
+  Boxes,
+  Braces,
+  Code,
+  Database,
+  FileCode,
+  FlaskConical,
   Puzzle,
-  Search,
-  Shield,
-  Terminal,
   Zap,
 } from "lucide-react";
 
+import app from "@/lib/config/app.config";
 import useInView from "@/lib/hooks/useInView";
 import cn from "@/lib/utils";
 
 import type { ReactNode } from "react";
 
-const plugins = [
+const targets = [
   {
-    name: "CLI Tools",
+    name: "OpenAPI 3",
+    description: "REST API contracts, emitted via TypeSpec",
+    icon: <FileCode className="h-6 w-6" />,
+    badge: "Default",
+  },
+  {
+    name: "JSON Schema",
+    description: "Validation and documentation for your types",
+    icon: <Braces className="h-6 w-6" />,
+    badge: "Default",
+  },
+  {
+    name: "Protocol Buffers",
+    description: "Wire schemas for gRPC and binary transport",
+    icon: <Boxes className="h-6 w-6" />,
+  },
+  {
+    name: "Drizzle ORM",
+    description: "Postgres schema generated from your models",
+    icon: <Database className="h-6 w-6" />,
+  },
+  {
+    name: "Typed SDKs",
     description:
-      "Schema management, migrations, and deployment from the terminal",
-    icon: <Terminal className="h-6 w-6" />,
-    badge: "Core",
+      "Idiomatic models and clients for TypeScript, Rust, and Python",
+    icon: <Code className="h-6 w-6" />,
   },
   {
-    name: "Auth Provider",
-    description: "JWT authentication, OAuth, and role-based access control",
-    icon: <Lock className="h-6 w-6" />,
-    badge: "Popular",
-  },
-  {
-    name: "Search Engine",
-    description: "Full-text search powered by PostgreSQL or Elasticsearch",
-    icon: <Search className="h-6 w-6" />,
-  },
-  {
-    name: "Rate Limiting",
-    description:
-      "API protection with configurable rate limits and usage monitoring",
-    icon: <Shield className="h-6 w-6" />,
-  },
-  {
-    name: "Cache Manager",
-    description: "Intelligent caching layer for high-performance API responses",
+    name: "React Query",
+    description: "Generated hooks and provider for your operations",
     icon: <Zap className="h-6 w-6" />,
   },
   {
-    name: "Webhooks",
-    description:
-      "Event-driven architecture with configurable webhook endpoints",
-    icon: <Bell className="h-6 w-6" />,
+    name: "Mock Handlers",
+    description: "MSW handlers and data factories for tests",
+    icon: <FlaskConical className="h-6 w-6" />,
   },
   {
-    name: "Monitoring",
-    description: "Metrics, tracing, and performance insights out of the box",
-    icon: <Activity className="h-6 w-6" />,
-  },
-  {
-    name: "Custom Plugin",
-    description: "Build your own plugins with the Extism SDK in any language",
+    name: "WASM Plugins",
+    description: "Write your own emitter in Rust or Python with the plugin SDK",
     icon: <Puzzle className="h-6 w-6" />,
+    badge: "Extensible",
   },
 ];
 
 /**
- * Ecosystem section showcasing the ODK plugin system.
+ * Ecosystem section showcasing ODK's emitter targets and plugin SDK.
  */
 const Ecosystem = () => {
   const { ref, inView } = useInView();
@@ -72,17 +72,18 @@ const Ecosystem = () => {
     <section id="ecosystem" className="bg-muted/50 px-4 py-24" ref={ref}>
       <div className="mx-auto max-w-6xl">
         <h2 className="mb-4 text-center font-bold text-3xl md:text-4xl">
-          Plugin Ecosystem
+          Emit to Any Target
         </h2>
         <p className="mx-auto mb-16 max-w-2xl text-center text-lg text-muted-foreground">
-          Extend ODK with a growing collection of plugins powered by Extism
+          ODK ships emitters for the formats you already use, and a WASM plugin
+          SDK for the ones you do not
         </p>
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {plugins.map((plugin, i) => (
-            <PluginCard
-              key={plugin.name}
-              {...plugin}
+          {targets.map((target, i) => (
+            <TargetCard
+              key={target.name}
+              {...target}
               inView={inView}
               delay={i * 75}
             />
@@ -90,20 +91,20 @@ const Ecosystem = () => {
         </div>
 
         <div className="mt-12 text-center">
-          <button
-            type="button"
+          <a
+            href={`${app.docsUrl}/products/odk`}
             className="inline-flex items-center gap-2 rounded-lg border bg-card px-6 py-3 font-medium transition-colors hover:bg-muted"
           >
             <Puzzle className="h-5 w-5" />
-            Browse Plugin Registry
-          </button>
+            Build a custom emitter
+          </a>
         </div>
       </div>
     </section>
   );
 };
 
-const PluginCard = ({
+const TargetCard = ({
   name,
   description,
   icon,

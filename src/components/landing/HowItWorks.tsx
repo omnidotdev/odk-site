@@ -4,98 +4,86 @@ import cn from "@/lib/utils";
 
 const steps = [
   {
-    title: "Define Your Schema",
+    title: "Define your model once",
     description:
-      "Start with a simple TypeScript schema that describes your data model",
-    filename: "schema.ts",
+      "Describe your types in YAML (or TypeScript, Rust, or Python). This is the single source of truth.",
+    filename: "schema.odk.yaml",
+    language: "yaml",
+    code: `version: "1.0"
+name: BlogAPI
+
+models:
+  User:
+    fields:
+      id: { type: string, format: uuid }
+      email: { type: string, format: email }
+      name: { type: string, optional: true }
+  Post:
+    fields:
+      id: { type: string, format: uuid }
+      title: string
+      authorId: { type: string, format: uuid }
+      published: boolean`,
+  },
+  {
+    title: "Compile to specs and schemas",
+    description:
+      "One IR, many emitters: OpenAPI and JSON Schema by default, plus Protobuf, Drizzle ORM, and more.",
+    filename: "generated/openapi.yaml",
+    language: "yaml",
+    code: `components:
+  schemas:
+    User:
+      type: object
+      required: [id, email]
+      properties:
+        id: { type: string, format: uuid }
+        email: { type: string, format: email }
+        name: { type: string }
+    Post:
+      type: object
+      required: [id, title, authorId, published]
+      properties:
+        id: { type: string, format: uuid }
+        title: { type: string }`,
+  },
+  {
+    title: "Generate typed clients",
+    description:
+      "From a GraphQL schema and operations, emit a typed SDK, React Query hooks, and MSW mocks.",
+    filename: "generated/models.ts",
     language: "typescript",
-    code: `import { defineSchema } from "@omnidotdev/odk";
-
-const schema = defineSchema({
-  User: {
-    id: "uuid",
-    name: "string",
-    email: "string @unique",
-    role: "'admin' | 'user'",
-    createdAt: "timestamp",
-  },
-  Post: {
-    id: "uuid",
-    title: "string",
-    content: "text",
-    author: "User @relation",
-    published: "boolean @default(false)",
-  },
-});`,
-  },
-  {
-    title: "Generate Database Schema",
-    description:
-      "ODK transforms your schema into production-ready PostgreSQL with Drizzle ORM",
-    filename: "generated/db.sql",
-    language: "sql",
-    code: `CREATE TABLE "users" (
-  "id" UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  "name" TEXT NOT NULL,
-  "email" TEXT NOT NULL UNIQUE,
-  "role" TEXT NOT NULL DEFAULT 'user',
-  "created_at" TIMESTAMP DEFAULT now()
-);
-
-CREATE TABLE "posts" (
-  "id" UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  "title" TEXT NOT NULL,
-  "content" TEXT NOT NULL,
-  "author_id" UUID NOT NULL REFERENCES "users"("id"),
-  "published" BOOLEAN DEFAULT false
-);`,
-  },
-  {
-    title: "Build REST APIs",
-    description:
-      "Auto-generated REST endpoints with full OpenAPI documentation",
-    filename: "generated/api.ts",
-    language: "typescript",
-    code: `// Auto-generated REST API endpoints
-app.get("/api/users", async (ctx) => {
-  const users = await db.select().from(usersTable);
-  return ctx.json(users);
-});
-
-app.post("/api/users", async (ctx) => {
-  const body = await ctx.req.json();
-  const user = await db.insert(usersTable)
-    .values(body).returning();
-  return ctx.json(user, 201);
-});`,
-  },
-  {
-    title: "Create GraphQL API",
-    description: "A full GraphQL schema with resolvers, ready for production",
-    filename: "generated/schema.graphql",
-    language: "graphql",
-    code: `type User {
-  id: ID!
-  name: String!
-  email: String!
-  role: String!
-  posts: [Post!]!
+    code: `export interface User {
+  id: string;
+  email: string;
+  name?: string;
 }
 
-type Query {
-  users: [User!]!
-  user(id: ID!): User
-}
-
-type Mutation {
-  createUser(input: CreateUserInput!): User!
-  updateUser(id: ID!, input: UpdateUserInput!): User!
+export interface Post {
+  id: string;
+  title: string;
+  authorId: string;
+  published: boolean;
+}`,
+  },
+  {
+    title: "Model once, in every language",
+    description:
+      "Emit idiomatic TypeScript, Rust, and Python types, including recursive, data-carrying discriminated unions.",
+    filename: "generated/models.rs",
+    language: "rust",
+    code: `#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(tag = "op", rename_all = "lowercase")]
+pub enum OpNode {
+    Cube { size: [f64; 3], center: bool },
+    Translate { v: [f64; 3], child: Box<OpNode> },
+    Union { children: Vec<OpNode> },
 }`,
   },
 ];
 
 /**
- * How It Works section showing the 4-step ODK workflow.
+ * How It Works section showing the ODK schema-to-artifacts workflow.
  */
 const HowItWorks = () => {
   const { ref, inView } = useInView();
@@ -107,7 +95,7 @@ const HowItWorks = () => {
           How It Works
         </h2>
         <p className="mx-auto mb-16 max-w-2xl text-center text-lg text-muted-foreground">
-          Go from a TypeScript schema to a complete API ecosystem in four steps
+          One schema compiles through a shared IR to any target
         </p>
 
         <div className="space-y-16">

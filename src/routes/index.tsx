@@ -4,7 +4,7 @@ import {
   ArrowRight,
   Code,
   Database,
-  GitBranch,
+  FileCode,
   Layers,
   Package,
   Terminal,
@@ -14,6 +14,7 @@ import {
 import Ecosystem from "@/components/landing/Ecosystem";
 import GetStarted from "@/components/landing/GetStarted";
 import HowItWorks from "@/components/landing/HowItWorks";
+import app from "@/lib/config/app.config";
 import useInView from "@/lib/hooks/useInView";
 import createMetaTags from "@/lib/util/createMetaTags";
 import cn from "@/lib/utils";
@@ -25,7 +26,7 @@ export const Route = createFileRoute("/")({
     meta: createMetaTags({
       title: "ODK - Omni Development Kit",
       description:
-        "Transform your data schema into a complete API ecosystem - Postgres, REST, GraphQL, and SDKs in minutes.",
+        "Define your data model once. Generate OpenAPI, Protobuf, Drizzle, JSON Schema, and typed SDKs from a single schema.",
     }),
   }),
   component: HomePage,
@@ -67,20 +68,19 @@ function HeroSection() {
         )}
       >
         <h1 className="font-bold text-4xl tracking-tight sm:text-5xl lg:text-6xl">
-          From{" "}
+          Model{" "}
           <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-            Schema
-          </span>{" "}
-          to{" "}
+            once
+          </span>
+          , emit{" "}
           <span className="bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">
-            APIs
-          </span>{" "}
-          in Minutes
+            everywhere
+          </span>
         </h1>
         <p className="max-w-2xl text-muted-foreground text-xl">
-          Omni Development Kit transforms your data schema into a complete API
-          ecosystem—Postgres schema, RESTful API, GraphQL, and SDK generation,
-          all in one seamless flow.
+          Define your data model once in YAML, TypeScript, Rust, or Python. The
+          Omni Development Kit generates OpenAPI, Protobuf, Drizzle, JSON
+          Schema, and typed SDKs, and extends with WASM plugins.
         </p>
       </div>
 
@@ -96,8 +96,8 @@ function HeroSection() {
             <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
           </a>
         </Button>
-        <Button size="lg" variant="outline">
-          View Documentation
+        <Button size="lg" variant="outline" asChild>
+          <a href={`${app.docsUrl}/products/odk`}>View Documentation</a>
         </Button>
       </div>
 
@@ -114,26 +114,25 @@ function HeroSection() {
             <div className="h-3 w-3 rounded-full bg-yellow-500/70" />
             <div className="h-3 w-3 rounded-full bg-green-500/70" />
           </div>
-          <span className="text-muted-foreground text-sm">schema.ts</span>
+          <span className="text-muted-foreground text-sm">schema.odk.yaml</span>
           <div className="w-16" />
         </div>
         <pre className="overflow-x-auto bg-muted/50 p-4 text-left text-sm">
-          <code className="text-foreground">{`// Define your data schema once
-type User = {
-  id: string;
-  name: string;
-  email: string;
-  role: "admin" | "user";
-  createdAt: Date;
-};
+          <code className="text-foreground">{`# Define your data model once
+version: "1.0"
+name: BlogAPI
 
-type Post = {
-  id: string;
-  title: string;
-  content: string;
-  authorId: string; // Relation to User
-  published: boolean;
-};`}</code>
+models:
+  User:
+    fields:
+      id: { type: string, format: uuid }
+      email: { type: string, format: email }
+      name: { type: string, optional: true }
+  Post:
+    fields:
+      id: { type: string, format: uuid }
+      title: string
+      authorId: { type: string, format: uuid }`}</code>
         </pre>
       </div>
 
@@ -145,19 +144,19 @@ type Post = {
         )}
       >
         <WorkflowStep
-          icon={<Database className="h-8 w-8 text-primary" />}
-          title="Postgres Schema"
-          subtitle="via Drizzle"
+          icon={<FileCode className="h-8 w-8 text-primary" />}
+          title="Specs & Schemas"
+          subtitle="OpenAPI, Protobuf, JSON Schema"
         />
         <WorkflowStep
-          icon={<Code className="h-8 w-8 text-secondary" />}
-          title="REST & GraphQL"
-          subtitle="OpenAPI compliant"
+          icon={<Database className="h-8 w-8 text-secondary" />}
+          title="Database"
+          subtitle="Drizzle ORM"
         />
         <WorkflowStep
           icon={<Terminal className="h-8 w-8 text-accent" />}
           title="SDKs & Plugins"
-          subtitle="via Extism"
+          subtitle="TypeScript, Rust, Python"
         />
       </div>
     </section>
@@ -171,7 +170,7 @@ function FeaturesSection() {
     <section id="features" className="bg-muted/50 px-4 py-24" ref={ref}>
       <div className="mx-auto max-w-6xl">
         <h2 className="mb-4 text-center font-bold text-3xl md:text-4xl">
-          Everything you need to build APIs
+          Everything from one schema
         </h2>
         <p className="mx-auto mb-12 max-w-2xl text-center text-lg text-muted-foreground">
           Schema-first development with a complete toolkit
@@ -181,42 +180,42 @@ function FeaturesSection() {
           <FeatureCard
             icon={<Zap className="h-8 w-8" />}
             title="Schema-First Design"
-            description="Define your data model once and generate everything else automatically"
+            description="Define your data model once and generate every artifact from it"
             inView={inView}
             delay={0}
           />
           <FeatureCard
             icon={<Layers className="h-8 w-8" />}
             title="Multi-Target Output"
-            description="Generate Postgres schemas, REST APIs, GraphQL endpoints, and typed SDKs"
+            description="Emit OpenAPI, Protobuf, Drizzle, JSON Schema, and typed SDKs from one source"
             inView={inView}
             delay={75}
           />
           <FeatureCard
             icon={<Package className="h-8 w-8" />}
             title="Plugin System"
-            description="Extend functionality with Extism-powered plugins in any language"
+            description="Write custom emitters as WASM plugins in Rust or Python with the plugin SDK"
             inView={inView}
             delay={150}
           />
           <FeatureCard
-            icon={<GitBranch className="h-8 w-8" />}
-            title="Version Control Ready"
-            description="Schema changes tracked in git, with migration support built-in"
+            icon={<Code className="h-8 w-8" />}
+            title="Types in Every Language"
+            description="Idiomatic TypeScript, Rust, and Python models, including recursive discriminated unions"
             inView={inView}
             delay={225}
           />
           <FeatureCard
             icon={<Database className="h-8 w-8" />}
             title="Drizzle Integration"
-            description="First-class support for Drizzle ORM with automatic schema generation"
+            description="First-class Drizzle ORM output for your Postgres schema"
             inView={inView}
             delay={300}
           />
           <FeatureCard
-            icon={<Code className="h-8 w-8" />}
-            title="Type Safety"
-            description="End-to-end TypeScript types from database to client SDK"
+            icon={<Terminal className="h-8 w-8" />}
+            title="One Rust CLI"
+            description="A single binary compiles your schema; no runtime or framework to install"
             inView={inView}
             delay={375}
           />

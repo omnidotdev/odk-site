@@ -16,14 +16,12 @@ describe("FrequentlyAskedQuestions", () => {
     render(<FrequentlyAskedQuestions />);
 
     // Check that the questions are rendered
-    expect(screen.getByText("Can I switch plans later?")).toBeDefined();
+    expect(screen.getByText("Is ODK really free?")).toBeDefined();
     expect(
-      screen.getByText("What payment methods do you accept?"),
+      screen.getByText("What can I generate from one schema?"),
     ).toBeDefined();
-    expect(
-      screen.getByText("What happens to my data if I cancel?"),
-    ).toBeDefined();
-    expect(screen.getByText("Can I self-host this software?")).toBeDefined();
+    expect(screen.getByText("Do I need an account or a server?")).toBeDefined();
+    expect(screen.getByText("Where do hosted features fit in?")).toBeDefined();
   });
 
   test("applies custom className", () => {

@@ -1,89 +1,87 @@
-import { TabsRootProvider, useTabs } from "@ark-ui/react";
-import {
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@omnidotdev/thornberry/tabs";
+import { Button } from "@omnidotdev/thornberry/button";
 import { createFileRoute } from "@tanstack/react-router";
+import { Check } from "lucide-react";
 
-import { FrequentlyAskedQuestions, PriceCard } from "@/components/pricing";
-import { getPrices } from "@/server/functions/prices";
+import { FrequentlyAskedQuestions } from "@/components/pricing";
+import createMetaTags from "@/lib/util/createMetaTags";
 
-import type { Price } from "@/components/pricing";
-
-const FREE_PRICE: Price = {
-  id: "free-price",
-  active: true,
-  currency: "usd",
-  unit_amount: 0,
-  recurring: null,
-  metadata: {},
-  product: {
-    id: "free-product",
-    name: "Free",
-    description: "Start for free.",
-    marketing_features: [
-      { name: "Feature 1" },
-      { name: "Feature 2" },
-      { name: "Feature 3" },
-    ],
-  },
-};
+const included = [
+  "The Rust CLI and every built-in emitter",
+  "OpenAPI, Protobuf, Drizzle, and JSON Schema output",
+  "Typed SDKs and models for TypeScript, Rust, and Python",
+  "React Query hooks and MSW mock generation",
+  "WASM plugin SDK for custom emitters",
+  "Self-hostable, Apache-2.0 licensed",
+];
 
 /**
- * Pricing page.
+ * Pricing page. ODK is free and open source; hosted artifact hosting lives in
+ * Manifold.
  */
 const PricingPage = () => {
-  const { prices } = Route.useLoaderData();
-
-  const tabs = useTabs({ defaultValue: "month" });
-
-  const filteredPrices = prices.filter(
-    (price: Price) => price.recurring?.interval === tabs.value,
-  );
-
   return (
     <div className="flex h-full flex-col items-center px-4 py-8 text-center">
-      <h1 className="my-6 font-bold text-4xl">Simple, transparent pricing</h1>
+      <h1 className="my-6 font-bold text-4xl">Free and open source</h1>
 
-      <h2 className="font-medium text-muted-foreground text-xl">
-        Start for free. As your business grows, upgrade to fit your needs.
+      <h2 className="max-w-2xl font-medium text-muted-foreground text-xl">
+        The Omni Development Kit is free to use, forever. No account, no seats,
+        no usage limits.
       </h2>
 
-      <TabsRootProvider
-        value={tabs}
-        className="mt-8 flex w-full flex-col lg:w-fit"
-      >
-        <TabsList className="place-self-center">
-          <TabsTrigger value="month">Monthly</TabsTrigger>
-          <TabsTrigger value="year">Yearly</TabsTrigger>
-        </TabsList>
-
-        {tabs.value != null && (
-          <TabsContent
-            value={tabs.value}
-            className="flex flex-col items-center gap-4 lg:flex-row"
-          >
-            {/** Handling the free tier could be quite different across apps. For now, we disable the action for authenticated users. TODO: Implement downstream. */}
-            <PriceCard price={FREE_PRICE} disableAction />
-
-            {filteredPrices.map((price: Price) => (
-              <PriceCard key={price.id} price={price} />
+      <div className="mt-10 grid w-full max-w-4xl gap-4 text-left lg:grid-cols-2">
+        <div className="flex flex-col gap-4 rounded-lg border bg-card p-6 shadow-sm">
+          <div>
+            <h3 className="font-semibold text-2xl">ODK</h3>
+            <p className="text-muted-foreground text-sm">
+              Everything in the toolkit, at no cost
+            </p>
+          </div>
+          <p className="font-bold text-4xl">
+            $0
+            <span className="ml-1 font-normal text-base text-muted-foreground">
+              forever
+            </span>
+          </p>
+          <ul className="flex flex-col gap-2">
+            {included.map((item) => (
+              <li key={item} className="flex items-start gap-2 text-sm">
+                <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                <span>{item}</span>
+              </li>
             ))}
-          </TabsContent>
-        )}
-      </TabsRootProvider>
+          </ul>
+        </div>
 
-      <FrequentlyAskedQuestions className="mt-12 w-full" />
+        <div className="flex flex-col gap-4 rounded-lg border bg-card p-6 shadow-sm">
+          <div>
+            <h3 className="font-semibold text-2xl">Hosted registry</h3>
+            <p className="text-muted-foreground text-sm">
+              Store, version, and share what ODK generates
+            </p>
+          </div>
+          <p className="text-muted-foreground">
+            ODK writes its output to disk for free. When you want to host,
+            version, and distribute those schemas, SDKs, and artifacts across a
+            team, publish them to Manifold, the Omni artifact registry.
+          </p>
+          <Button className="mt-auto w-fit" asChild>
+            <a href="https://manifold.omni.dev">Explore Manifold</a>
+          </Button>
+        </div>
+      </div>
+
+      <FrequentlyAskedQuestions className="mt-16 w-full" />
     </div>
   );
 };
 
 export const Route = createFileRoute("/pricing")({
-  loader: async () => {
-    const prices = await getPrices();
-
-    return { prices };
-  },
+  head: () => ({
+    meta: createMetaTags({
+      title: "Pricing - ODK",
+      description:
+        "The Omni Development Kit is free and open source. Hosted artifact hosting lives in Manifold.",
+    }),
+  }),
   component: PricingPage,
 });

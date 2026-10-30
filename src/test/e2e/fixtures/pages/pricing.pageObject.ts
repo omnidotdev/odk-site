@@ -12,14 +12,11 @@ const createPricingPageObject = ({ page, context }: PageObjectContext) =>
     name: "Pricing",
     baseUrl: "/pricing",
     // Page-specific helpers
-    getHeading: () => page.getByRole("heading", { name: /pricing/i }),
-    getPriceCards: () => page.locator("article"),
-    getMonthlyTab: () => page.getByRole("tab", { name: /monthly/i }),
-    getYearlyTab: () => page.getByRole("tab", { name: /yearly/i }),
+    getHeading: () =>
+      page.getByRole("heading", { name: /free and open source/i }),
     getFAQSection: () =>
       page.getByRole("heading", { name: "Frequently Asked Questions" }),
-    getGetStartedButtons: () =>
-      page.getByRole("button", { name: "Get Started" }),
+    getManifoldLink: () => page.getByRole("link", { name: /manifold/i }),
   });
 
 export type PricingPageObject = ReturnType<typeof createPricingPageObject>;
