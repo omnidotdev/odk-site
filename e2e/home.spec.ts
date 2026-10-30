@@ -3,7 +3,7 @@ import test, { expect } from "../src/test/e2e/util/test";
 test.describe("Home Page", () => {
   test("loads successfully", async ({ homePage }) => {
     await homePage.goto();
-    await expect(homePage.page).toHaveTitle(/TanStack Start Template/);
+    await expect(homePage.page).toHaveTitle(/ODK/);
   });
 
   test("renders header", async ({ homePage }) => {
@@ -15,10 +15,5 @@ test.describe("Home Page", () => {
     await homePage.goto();
     await homePage.getPricingLink().click();
     await expect(pricingPage.page).toHaveURL(/\/pricing/);
-  });
-
-  test("shows sign in button when unauthenticated", async ({ homePage }) => {
-    await homePage.goto();
-    await expect(homePage.getSignInButton()).toBeVisible();
   });
 });

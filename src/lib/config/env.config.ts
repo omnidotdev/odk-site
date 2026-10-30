@@ -15,8 +15,6 @@ export const {
   // auth (server-side secrets)
   AUTH_CLIENT_ID,
   AUTH_CLIENT_SECRET,
-  // billing
-  VITE_BILLING_BASE_URL: BILLING_BASE_URL,
   // authorization (consumed by warden client)
   AUTHZ_ENABLED,
   AUTHZ_API_URL,

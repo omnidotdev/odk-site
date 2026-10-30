@@ -10,23 +10,23 @@ import cn from "@/lib/utils";
 
 const FAQ = [
   {
-    question: "Can I switch plans later?",
-    answer:
-      "Yes, you can upgrade or downgrade your plan at any time. When you upgrade, you'll be prorated the difference. When you downgrade, you'll receive credit for your next billing cycle.",
+    question: "Is ODK really free?",
+    answer: `Yes. ${app.name} is free and open source under Apache 2.0. The CLI, every built-in emitter, the SDKs, and the plugin SDK are all free, with no account, seats, or usage limits.`,
   },
   {
-    question: "What payment methods do you accept?",
+    question: "What can I generate from one schema?",
     answer:
-      "We accept a wide variety of payment methods, including all major credit card providers and PayPal.",
+      "OpenAPI, Protobuf, Drizzle ORM, and JSON Schema, plus typed models and SDKs for TypeScript, Rust, and Python, React Query hooks, and MSW mocks. You can add your own targets with WASM plugins.",
   },
   {
-    question: "What happens to my data if I cancel?",
+    question: "Do I need an account or a server?",
     answer:
-      "If you cancel your subscription, your data will be safe on our servers unless you explicitly reach out to us to permanently delete it, or we contact you to warn about deletion. We will never delete your data without your explicit consent or without fair warning from us.",
+      "No. ODK is a Rust CLI that runs entirely on your machine and writes its output to disk. There is nothing to sign in to and nothing to deploy.",
   },
   {
-    question: "Can I self-host this software?",
-    answer: `Yes! ${app.name} is open source software. Instructions for self-hosting will be available soon.`,
+    question: "Where do hosted features fit in?",
+    answer:
+      "When you want to host, version, and distribute the schemas, SDKs, and artifacts ODK generates across a team, publish them to Manifold, the Omni artifact registry.",
   },
 ];
 
