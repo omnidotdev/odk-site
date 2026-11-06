@@ -27,3 +27,7 @@ playwright-report
 playwright/.cache
 src/generated/test-artifacts
 src/generated/test-report
+.playwright-mcp/
+
+# Agent / tooling local state
+.claude/
