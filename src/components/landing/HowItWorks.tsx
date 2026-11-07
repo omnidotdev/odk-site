@@ -111,7 +111,7 @@ const HowItWorks = () => {
               )}
               style={{ transitionDelay: `${i * 150}ms` }}
             >
-              <div className="flex-1 md:pt-8">
+              <div className="min-w-0 flex-1 md:pt-8">
                 <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-primary font-bold text-primary-foreground text-sm">
                   {i + 1}
                 </div>
@@ -119,7 +119,7 @@ const HowItWorks = () => {
                 <p className="text-muted-foreground">{step.description}</p>
               </div>
 
-              <div className="flex-1">
+              <div className="min-w-0 flex-1">
                 <CodeBlock
                   code={step.code}
                   filename={step.filename}

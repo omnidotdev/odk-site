@@ -22,7 +22,8 @@ const createMetaTags = ({
   image,
   keywords,
 }: Params = {}) => {
-  const title = _title ? `${_title} | ${app.name}` : app.name,
+  const title =
+      _title && _title !== app.name ? `${_title} | ${app.name}` : app.name,
     description = _description ?? app.description,
     url = _url ?? BASE_URL;
 

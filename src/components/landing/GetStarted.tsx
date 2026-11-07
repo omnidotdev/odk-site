@@ -74,7 +74,9 @@ const GetStarted = () => {
             <div
               key={step.title}
               className={cn(
-                "transition-all duration-600",
+                // min-w-0 lets the grid cell shrink below the code block's
+                // intrinsic width so the block scrolls instead of overflowing
+                "min-w-0 transition-all duration-600",
                 inView
                   ? "translate-y-0 opacity-100"
                   : "translate-y-8 opacity-0",
