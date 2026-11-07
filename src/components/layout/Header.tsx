@@ -60,7 +60,15 @@ const Header = () => {
           {/* Logo + desktop nav */}
           <div className="flex items-center gap-6">
             <InternalLink to="/" variant="unstyled" className="-ml-4">
-              <h1 className="font-bold text-xl">{app.name}</h1>
+              <span className="flex items-center gap-2.5">
+                <img
+                  src="/favicon.svg"
+                  alt=""
+                  aria-hidden="true"
+                  className="h-7 w-7 shrink-0"
+                />
+                <h1 className="font-bold text-xl">{app.name}</h1>
+              </span>
             </InternalLink>
 
             <nav className="hidden items-center gap-1 md:flex">
