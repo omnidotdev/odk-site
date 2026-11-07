@@ -1,6 +1,8 @@
 @import "tailwindcss";
 @import "@omnidotdev/thornberry/base.css";
 @import "tw-animate-css";
+@import "@fontsource-variable/space-grotesk";
+@import "@fontsource-variable/jetbrains-mono";
 @source "../../../node_modules/@omnidotdev/thornberry/build";
 
 @custom-variant dark (&:is(.dark *));
@@ -131,9 +133,9 @@ body {
   --secondary-950: oklch(0.2928 0.1157 326.39);
   --secondary-1000: oklch(0.2226 0.0968 326.44);
 
-  --background: var(--color-white);
-  --foreground: var(--base-800);
-  --card: var(--color-white);
+  --background: #f5f3ec;
+  --foreground: #17181d;
+  --card: #fbfaf6;
   --card-foreground: var(--base-800);
   --popover: var(--color-white);
   --popover-foreground: var(--base-800);
@@ -146,7 +148,7 @@ body {
   --accent: var(--base-50);
   --accent-foreground: var(--base-800);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: var(--base-200);
+  --border: #e2ded2;
   --input: var(--base-300);
   --ring: var(--primary-400);
   --chart-1: var(--primary-400);
@@ -163,31 +165,37 @@ body {
   --sidebar-accent-foreground: var(--base-800);
   --sidebar-border: var(--base-200);
   --sidebar-ring: var(--primary-400);
-  --display-family: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --display-family:
+    "Space Grotesk Variable", "Space Grotesk", ui-sans-serif, system-ui,
+    sans-serif;
   --display-weight: 700;
-  --text-family: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --text-family:
+    "Space Grotesk Variable", "Space Grotesk", ui-sans-serif, system-ui,
+    sans-serif;
   --text-weight: 400;
-  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --font-mono:
+    "JetBrains Mono Variable", "JetBrains Mono", ui-monospace, "SF Mono", Menlo,
+    monospace;
   --signal: #ffb13b;
 }
 
 .dark {
-  --background: var(--base-950);
-  --foreground: var(--base-200);
-  --card: var(--base-950);
-  --card-foreground: var(--base-200);
-  --popover: var(--base-950);
-  --popover-foreground: var(--base-200);
-  --primary: var(--primary-400);
-  --primary-foreground: var(--color-black);
+  --background: #0a0b0f;
+  --foreground: #f3f1ea;
+  --card: #101219;
+  --card-foreground: #f3f1ea;
+  --popover: #101219;
+  --popover-foreground: #f3f1ea;
+  --primary: #2ee6cf;
+  --primary-foreground: #04211d;
   --secondary: var(--secondary-500);
   --secondary-foreground: var(--color-black);
-  --muted: var(--base-900);
-  --muted-foreground: var(--base-400);
-  --accent: var(--base-900);
-  --accent-foreground: var(--base-200);
+  --muted: #14161d;
+  --muted-foreground: #878b99;
+  --accent: #171a22;
+  --accent-foreground: #f3f1ea;
   --destructive: oklch(0.704 0.191 22.216);
-  --border: var(--base-800);
+  --border: #20232e;
   --input: var(--base-700);
   --ring: var(--primary-400);
   --chart-1: var(--primary-400);
