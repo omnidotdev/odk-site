@@ -5,6 +5,11 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* the whole site speaks Space Grotesk; JetBrains Mono carries the technical bits */
+body {
+  font-family: var(--text-family);
+}
+
 @theme inline {
   --font-display: var(--display-family);
   --font-text: var(--text-family);
@@ -69,6 +74,7 @@
   --color-destructive: var(--destructive);
   --color-accent-foreground: var(--accent-foreground);
   --color-accent: var(--accent);
+  --color-signal: var(--signal);
   --color-muted-foreground: var(--muted-foreground);
   --color-muted: var(--muted);
   --color-secondary-foreground: var(--secondary-foreground);
@@ -157,10 +163,12 @@
   --sidebar-accent-foreground: var(--base-800);
   --sidebar-border: var(--base-200);
   --sidebar-ring: var(--primary-400);
-  --display-family: var(--font-sans);
-  --display-weight: 400;
-  --text-family: var(--font-sans);
+  --display-family: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --display-weight: 700;
+  --text-family: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
   --text-weight: 400;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --signal: #ffb13b;
 }
 
 .dark {

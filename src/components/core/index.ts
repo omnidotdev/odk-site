@@ -1,5 +1,3 @@
-export * from "./CodeBlock";
-export { default as CodeBlock } from "./CodeBlock";
 /** @knipignore - Exported for downstream use */
 export * from "./DataTable";
 /** @knipignore - Exported for downstream use */

@@ -4,14 +4,12 @@ import { useCallback, useEffect, useState } from "react";
 
 import { InternalLink } from "@/components/core";
 import { ThemeToggle } from "@/components/layout";
-import app from "@/lib/config/app.config";
 import cn from "@/lib/utils";
 
 const navLinks = [
-  { label: "Features", href: "#features" },
-  { label: "How It Works", href: "#how-it-works" },
-  { label: "Ecosystem", href: "#ecosystem" },
-  { label: "Get Started", href: "#get-started" },
+  { label: "compile", href: "#what" },
+  { label: "generate", href: "#emit" },
+  { label: "plugins", href: "#emit" },
 ];
 
 /**
@@ -60,14 +58,16 @@ const Header = () => {
           {/* Logo + desktop nav */}
           <div className="flex items-center gap-6">
             <InternalLink to="/" variant="unstyled" className="-ml-4">
-              <span className="flex items-center gap-2.5">
+              <span className="flex items-center gap-3">
                 <img
                   src="/favicon.svg"
                   alt=""
                   aria-hidden="true"
-                  className="h-7 w-7 shrink-0"
+                  className="h-10 w-10 shrink-0"
                 />
-                <h1 className="font-bold text-xl">{app.name}</h1>
+                <h1 className="font-bold font-mono text-lg tracking-tight">
+                  odk
+                </h1>
               </span>
             </InternalLink>
 

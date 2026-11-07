@@ -1,26 +1,12 @@
-import { Button } from "@omnidotdev/thornberry/button";
 import { createFileRoute } from "@tanstack/react-router";
-import {
-  ArrowRight,
-  Code,
-  Database,
-  FileCode,
-  Layers,
-  Package,
-  Terminal,
-  Zap,
-} from "lucide-react";
 
 import Ecosystem from "@/components/landing/Ecosystem";
-import GetStarted from "@/components/landing/GetStarted";
-import HowItWorks from "@/components/landing/HowItWorks";
 import PipelineDiagram from "@/components/landing/PipelineDiagram";
 import app from "@/lib/config/app.config";
-import useInView from "@/lib/hooks/useInView";
 import createMetaTags from "@/lib/util/createMetaTags";
 import cn from "@/lib/utils";
 
-import type { ReactNode } from "react";
+const docs = `${app.docsUrl}/products/odk`;
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -38,216 +24,168 @@ export const Route = createFileRoute("/")({
  */
 function HomePage() {
   return (
-    <div className="flex min-h-[calc(100vh-4rem)] flex-col">
-      <HeroSection />
-      <FeaturesSection />
-      <HowItWorks />
+    <div
+      className="relative"
+      style={{
+        backgroundImage:
+          "radial-gradient(circle at 1px 1px, var(--color-border) 1px, transparent 0)",
+        backgroundSize: "28px 28px",
+      }}
+    >
+      <Hero />
+      <StatRail />
+      <SpecSheet />
       <Ecosystem />
-      <GetStarted />
     </div>
   );
 }
 
-function HeroSection() {
-  const { ref, inView } = useInView({ margin: "0px" });
-
+function Hero() {
   return (
-    <section
-      ref={ref}
-      className="relative flex flex-1 flex-col items-center justify-center gap-8 overflow-hidden px-4 py-16 text-center"
-    >
-      {/* Background gradient blobs */}
-      <div className="pointer-events-none absolute inset-0 -z-10 opacity-30">
-        <div className="absolute top-0 right-0 h-96 w-96 rounded-full bg-primary/20 blur-3xl" />
-        <div className="absolute bottom-0 left-0 h-96 w-96 rounded-full bg-secondary/20 blur-3xl" />
-      </div>
+    <section className="border-border border-b">
+      <div className="mx-auto grid max-w-6xl items-center gap-10 px-6 py-16 md:grid-cols-[1.02fr_0.98fr] md:py-20">
+        <div>
+          <h1 className="font-bold text-5xl leading-[0.95] tracking-tight sm:text-6xl lg:text-7xl">
+            Model once,
+            <br />
+            <span className="text-primary">emit everywhere.</span>
+          </h1>
+          <p className="mt-6 max-w-[30em] text-lg text-muted-foreground">
+            Define your data model one time, in the language you already use.
+            ODK compiles it through a single IR into{" "}
+            <span className="text-foreground">
+              every spec, schema, and client
+            </span>{" "}
+            your stack needs. One source of truth, never hand-synced.
+          </p>
+          <div className="mt-8 flex flex-wrap items-center gap-3 font-mono text-sm">
+            <a
+              href={docs}
+              className="rounded-md bg-primary px-4 py-3 font-bold text-primary-foreground transition-opacity hover:opacity-90"
+            >
+              cargo install odk-cli
+            </a>
+            <a
+              href={docs}
+              className="rounded-md border border-border px-4 py-3 transition-colors hover:border-primary hover:text-primary"
+            >
+              Read the docs
+            </a>
+            <span className="text-muted-foreground/70">
+              {"// or bun add @omnidotdev/odk"}
+            </span>
+          </div>
+        </div>
 
-      <div
-        className={cn(
-          "flex max-w-4xl flex-col items-center gap-6 transition-all duration-700",
-          inView ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0",
-        )}
-      >
-        <h1 className="font-bold text-4xl tracking-tight sm:text-5xl lg:text-6xl">
-          Model{" "}
-          <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-            once
-          </span>
-          , emit{" "}
-          <span className="bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">
-            everywhere
-          </span>
-        </h1>
-        <p className="max-w-2xl text-muted-foreground text-xl">
-          Define your data model once in YAML, TypeScript, Rust, or Python. The
-          Omni Development Kit generates OpenAPI, Protobuf, Drizzle, JSON
-          Schema, and typed SDKs, and extends with WASM plugins.
-        </p>
-      </div>
-
-      <div
-        className={cn(
-          "flex flex-col gap-4 transition-all delay-200 duration-700 sm:flex-row",
-          inView ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0",
-        )}
-      >
-        <Button size="lg" className="group" asChild>
-          <a href="#get-started">
-            Get Started
-            <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-          </a>
-        </Button>
-        <Button size="lg" variant="outline" asChild>
-          <a href={`${app.docsUrl}/products/odk`}>View Documentation</a>
-        </Button>
-      </div>
-
-      {/* Living pipeline */}
-      <div
-        className={cn(
-          "mt-8 w-full max-w-5xl overflow-hidden rounded-xl border bg-card/40 px-4 py-6 shadow-2xl transition-all delay-300 duration-700",
-          inView ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0",
-        )}
-      >
-        <PipelineDiagram />
-        <p className="mt-2 text-center font-mono text-muted-foreground text-xs">
-          one schema in,{" "}
-          <span className="text-primary">every artifact out</span>, never
-          hand-synced
-        </p>
-      </div>
-
-      {/* Workflow Icons */}
-      <div
-        className={cn(
-          "mt-12 flex flex-col gap-8 transition-all delay-500 duration-700 md:flex-row md:gap-16",
-          inView ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0",
-        )}
-      >
-        <WorkflowStep
-          icon={<FileCode className="h-8 w-8 text-primary" />}
-          title="Specs & Schemas"
-          subtitle="OpenAPI, Protobuf, JSON Schema"
-        />
-        <WorkflowStep
-          icon={<Database className="h-8 w-8 text-secondary" />}
-          title="Database"
-          subtitle="Drizzle ORM"
-        />
-        <WorkflowStep
-          icon={<Terminal className="h-8 w-8 text-accent" />}
-          title="SDKs & Plugins"
-          subtitle="TypeScript, Rust, Python"
-        />
-      </div>
-    </section>
-  );
-}
-
-function FeaturesSection() {
-  const { ref, inView } = useInView();
-
-  return (
-    <section id="features" className="bg-muted/50 px-4 py-24" ref={ref}>
-      <div className="mx-auto max-w-6xl">
-        <h2 className="mb-4 text-center font-bold text-3xl md:text-4xl">
-          Everything from one schema
-        </h2>
-        <p className="mx-auto mb-12 max-w-2xl text-center text-lg text-muted-foreground">
-          Schema-first development with a complete toolkit
-        </p>
-
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          <FeatureCard
-            icon={<Zap className="h-8 w-8" />}
-            title="Schema-First Design"
-            description="Define your data model once and generate every artifact from it"
-            inView={inView}
-            delay={0}
-          />
-          <FeatureCard
-            icon={<Layers className="h-8 w-8" />}
-            title="Multi-Target Output"
-            description="Emit OpenAPI, Protobuf, Drizzle, JSON Schema, and typed SDKs from one source"
-            inView={inView}
-            delay={75}
-          />
-          <FeatureCard
-            icon={<Package className="h-8 w-8" />}
-            title="Plugin System"
-            description="Write custom emitters as WASM plugins in Rust or Python with the plugin SDK"
-            inView={inView}
-            delay={150}
-          />
-          <FeatureCard
-            icon={<Code className="h-8 w-8" />}
-            title="Types in Every Language"
-            description="Idiomatic TypeScript, Rust, and Python models, including recursive discriminated unions"
-            inView={inView}
-            delay={225}
-          />
-          <FeatureCard
-            icon={<Database className="h-8 w-8" />}
-            title="Drizzle Integration"
-            description="First-class Drizzle ORM output for your Postgres schema"
-            inView={inView}
-            delay={300}
-          />
-          <FeatureCard
-            icon={<Terminal className="h-8 w-8" />}
-            title="One Rust CLI"
-            description="A single binary compiles your schema; no runtime or framework to install"
-            inView={inView}
-            delay={375}
-          />
+        <div className="overflow-hidden rounded-xl border border-border bg-card/50">
+          <div className="flex items-center gap-2 border-border border-b px-4 py-2.5 font-mono text-muted-foreground text-xs">
+            <span className="h-2 w-2 rounded-full bg-muted-foreground/30" />
+            <span className="h-2 w-2 rounded-full bg-muted-foreground/30" />
+            <span className="h-2 w-2 rounded-full bg-muted-foreground/30" />
+            <span className="ml-auto">{"schema → IR → targets"}</span>
+          </div>
+          <div className="px-4 py-6">
+            <PipelineDiagram />
+          </div>
         </div>
       </div>
     </section>
   );
 }
 
-function WorkflowStep({
-  icon,
-  title,
-  subtitle,
-}: {
-  icon: ReactNode;
-  title: string;
-  subtitle: string;
-}) {
+const stats = [
+  { n: "4", l: "INPUT LANGUAGES", c: "text-primary" },
+  { n: "7+", l: "BUILT-IN TARGETS" },
+  { n: "1", l: "RUST BINARY, NO RUNTIME" },
+  { n: "OSS", l: "APACHE-2.0, FREE FOREVER", c: "text-signal" },
+] as const;
+
+function StatRail() {
   return (
-    <div className="flex flex-col items-center text-center">
-      <div className="mb-3 rounded-full bg-card p-4 shadow-md">{icon}</div>
-      <span className="font-medium">{title}</span>
-      <span className="text-muted-foreground text-sm">{subtitle}</span>
+    <div className="border-border border-b bg-card/30">
+      <div className="mx-auto grid max-w-6xl grid-cols-2 font-mono md:grid-cols-4">
+        {stats.map((s, i) => (
+          <div
+            key={s.l}
+            className={cn("border-border px-6 py-5", i > 0 && "border-l")}
+          >
+            <div
+              className={cn(
+                "font-bold text-2xl tracking-tight",
+                "c" in s && s.c,
+              )}
+            >
+              {s.n}
+            </div>
+            <div className="mt-0.5 text-[11px] text-muted-foreground tracking-wider">
+              {s.l}
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
 
-function FeatureCard({
-  icon,
-  title,
-  description,
-  inView,
-  delay,
-}: {
-  icon: ReactNode;
-  title: string;
-  description: string;
-  inView: boolean;
-  delay: number;
-}) {
+const specRows = [
+  {
+    n: "01",
+    h: "Author in any language",
+    p: "YAML, TypeScript with Zod, Rust, or Python. They all compile to the same IR.",
+    code: `models:
+  User:
+    id: { type: string, format: uuid }
+    email: { type: string, format: email }`,
+  },
+  {
+    n: "02",
+    h: "Compile to specs and schemas",
+    p: "OpenAPI and JSON Schema by default. Protobuf and Drizzle ORM on request, via TypeSpec.",
+    code: `$ odk compile schema.odk.yaml \\
+    -e @omnidotdev/typespec-drizzle`,
+  },
+  {
+    n: "03",
+    h: "Idiomatic types, including recursion",
+    p: "Rust, TypeScript, and Python models with recursive discriminated unions, and extend it all with WASM plugins.",
+    code: `#[serde(tag = "op")]
+enum OpNode {
+  Translate { child: Box<OpNode> },
+  Union { children: Vec<OpNode> },
+}`,
+  },
+];
+
+function SpecSheet() {
   return (
-    <div
-      className={cn(
-        "rounded-lg border bg-card p-6 shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-md",
-        inView ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0",
-      )}
-      style={{ transitionDelay: `${delay}ms` }}
-    >
-      <div className="mb-4 text-primary">{icon}</div>
-      <h3 className="mb-2 font-semibold text-xl">{title}</h3>
-      <p className="text-muted-foreground">{description}</p>
-    </div>
+    <section id="what" className="mx-auto max-w-6xl px-6 py-16">
+      <p className="font-mono text-primary text-xs">[ what it does ]</p>
+      <h2 className="mt-2 font-bold text-3xl tracking-tight md:text-4xl">
+        One schema, idiomatic everywhere.
+      </h2>
+      <p className="mt-3 max-w-[44em] text-lg text-muted-foreground">
+        Author in the language you already use. The same IR drives every output,
+        including the recursive, data-carrying types most codegen cannot
+        express.
+      </p>
+
+      <div className="mt-10 border-border border-t">
+        {specRows.map((r) => (
+          <div
+            key={r.n}
+            className="grid gap-5 border-border border-b py-7 md:grid-cols-[64px_1fr_1fr] md:gap-7"
+          >
+            <div className="font-mono text-primary text-sm">{r.n}</div>
+            <div className="min-w-0">
+              <h3 className="font-semibold text-xl tracking-tight">{r.h}</h3>
+              <p className="mt-1.5 text-muted-foreground">{r.p}</p>
+            </div>
+            <pre className="min-w-0 overflow-x-auto rounded-lg border border-border bg-card/50 p-4 font-mono text-[12.5px] text-muted-foreground leading-relaxed">
+              {r.code}
+            </pre>
+          </div>
+        ))}
+      </div>
+    </section>
   );
 }

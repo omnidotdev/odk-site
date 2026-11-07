@@ -38,17 +38,10 @@ export interface FileRoutesById {
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/'
-    | '/pricing'
+  fullPaths: '/' | '/pricing'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/pricing'
-  id:
-    | '__root__'
-    | '/'
-    | '/pricing'
+  to: '/' | '/pricing'
+  id: '__root__' | '/' | '/pricing'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
