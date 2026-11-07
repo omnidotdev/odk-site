@@ -14,6 +14,7 @@ import {
 import Ecosystem from "@/components/landing/Ecosystem";
 import GetStarted from "@/components/landing/GetStarted";
 import HowItWorks from "@/components/landing/HowItWorks";
+import PipelineDiagram from "@/components/landing/PipelineDiagram";
 import app from "@/lib/config/app.config";
 import useInView from "@/lib/hooks/useInView";
 import createMetaTags from "@/lib/util/createMetaTags";
@@ -101,39 +102,19 @@ function HeroSection() {
         </Button>
       </div>
 
-      {/* Code Preview */}
+      {/* Living pipeline */}
       <div
         className={cn(
-          "mt-8 w-full max-w-4xl overflow-hidden rounded-lg border shadow-2xl transition-all delay-300 duration-700",
+          "mt-8 w-full max-w-5xl overflow-hidden rounded-xl border bg-card/40 px-4 py-6 shadow-2xl transition-all delay-300 duration-700",
           inView ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0",
         )}
       >
-        <div className="flex items-center justify-between border-b bg-card px-4 py-3">
-          <div className="flex space-x-2">
-            <div className="h-3 w-3 rounded-full bg-destructive/70" />
-            <div className="h-3 w-3 rounded-full bg-yellow-500/70" />
-            <div className="h-3 w-3 rounded-full bg-green-500/70" />
-          </div>
-          <span className="text-muted-foreground text-sm">schema.odk.yaml</span>
-          <div className="w-16" />
-        </div>
-        <pre className="overflow-x-auto bg-muted/50 p-4 text-left text-sm">
-          <code className="text-foreground">{`# Define your data model once
-version: "1.0"
-name: BlogAPI
-
-models:
-  User:
-    fields:
-      id: { type: string, format: uuid }
-      email: { type: string, format: email }
-      name: { type: string, optional: true }
-  Post:
-    fields:
-      id: { type: string, format: uuid }
-      title: string
-      authorId: { type: string, format: uuid }`}</code>
-        </pre>
+        <PipelineDiagram />
+        <p className="mt-2 text-center font-mono text-muted-foreground text-xs">
+          one schema in,{" "}
+          <span className="text-primary">every artifact out</span>, never
+          hand-synced
+        </p>
       </div>
 
       {/* Workflow Icons */}

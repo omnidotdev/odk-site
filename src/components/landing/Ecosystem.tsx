@@ -9,6 +9,7 @@ import {
   Zap,
 } from "lucide-react";
 
+import EmitConstellation from "@/components/landing/EmitConstellation";
 import app from "@/lib/config/app.config";
 import useInView from "@/lib/hooks/useInView";
 import cn from "@/lib/utils";
@@ -74,10 +75,19 @@ const Ecosystem = () => {
         <h2 className="mb-4 text-center font-bold text-3xl md:text-4xl">
           Emit to Any Target
         </h2>
-        <p className="mx-auto mb-16 max-w-2xl text-center text-lg text-muted-foreground">
+        <p className="mx-auto mb-12 max-w-2xl text-center text-lg text-muted-foreground">
           ODK ships emitters for the formats you already use, and a WASM plugin
-          SDK for the ones you do not
+          SDK for the ones you do not. All from the same IR at the center.
         </p>
+
+        <div
+          className={cn(
+            "mb-16 transition-all duration-700",
+            inView ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0",
+          )}
+        >
+          <EmitConstellation />
+        </div>
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {targets.map((target, i) => (
