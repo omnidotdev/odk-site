@@ -97,13 +97,12 @@ const stats = [
   { n: "4", l: "INPUT LANGUAGES", c: "text-primary" },
   { n: "7+", l: "BUILT-IN TARGETS" },
   { n: "1", l: "RUST BINARY, NO RUNTIME" },
-  { n: "OSS", l: "APACHE-2.0, FREE FOREVER", c: "text-signal" },
 ] as const;
 
 function StatRail() {
   return (
     <div className="border-border border-b bg-card/30">
-      <div className="mx-auto grid max-w-6xl grid-cols-2 font-mono md:grid-cols-4">
+      <div className="mx-auto grid max-w-6xl grid-cols-3 font-mono">
         {stats.map((s, i) => (
           <div
             key={s.l}
@@ -159,8 +158,7 @@ enum OpNode {
 function SpecSheet() {
   return (
     <section id="what" className="mx-auto max-w-6xl px-6 py-16">
-      <p className="font-mono text-primary text-xs">[ what it does ]</p>
-      <h2 className="mt-2 font-bold text-3xl tracking-tight md:text-4xl">
+      <h2 className="font-bold text-3xl tracking-tight md:text-4xl">
         One schema, idiomatic everywhere.
       </h2>
       <p className="mt-3 max-w-[44em] text-lg text-muted-foreground">

@@ -38,10 +38,6 @@ const spoke = (n: Node) => `M${n.sx} ${n.sy} L${n.nx} ${n.ny}`;
 
 const EmitConstellation = () => (
   <div className="relative mx-auto grid max-w-xl place-items-center">
-    <div
-      aria-hidden="true"
-      className="pointer-events-none absolute aspect-square w-[62%] rounded-full bg-primary/15 blur-xl motion-safe:animate-pulse"
-    />
     <svg
       viewBox="0 0 520 520"
       className="relative h-auto w-full"

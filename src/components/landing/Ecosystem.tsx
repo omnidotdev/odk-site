@@ -19,8 +19,7 @@ const targets = [
 const Ecosystem = () => (
   <section id="emit" className="border-border border-t bg-card/30">
     <div className="mx-auto max-w-6xl px-6 py-16">
-      <p className="font-mono text-primary text-xs">[ emit to any target ]</p>
-      <h2 className="mt-2 font-bold text-3xl tracking-tight md:text-4xl">
+      <h2 className="font-bold text-3xl tracking-tight md:text-4xl">
         One IR at the center.
       </h2>
       <p className="mt-3 max-w-[44em] text-lg text-muted-foreground">
