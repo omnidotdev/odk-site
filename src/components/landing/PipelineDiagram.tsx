@@ -2,7 +2,7 @@ import {
   Binary,
   Blocks,
   Braces,
-  Database,
+  Code,
   FileText,
   FileType2,
   Network,
@@ -82,8 +82,8 @@ const targets: (Node & { flareBegin: string })[] = [
   },
   {
     y: 185,
-    label: "Drizzle + SDKs",
-    icon: Database,
+    label: "TypeScript SDK",
+    icon: Code,
     wire: "M536 154 C616 168 676 202 748 202",
     pulseBegin: "2.05s",
     flareBegin: "3.25s",
@@ -103,7 +103,7 @@ const PipelineDiagram = () => (
     viewBox="0 0 960 300"
     className="h-auto w-full"
     role="img"
-    aria-label="One schema compiles through the ODK core into OpenAPI, JSON Schema, Protobuf, Drizzle, typed SDKs, and your own WASM emitters"
+    aria-label="One schema compiles through the ODK core into OpenAPI, JSON Schema, Protobuf, TypeScript SDKs, and your own WASM emitters"
   >
     <defs>
       <marker
