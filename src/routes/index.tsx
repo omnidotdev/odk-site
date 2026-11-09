@@ -13,7 +13,7 @@ export const Route = createFileRoute("/")({
     meta: createMetaTags({
       title: "ODK - Omni Development Kit",
       description:
-        "Define your data model once. Generate OpenAPI, Protobuf, Drizzle, JSON Schema, and typed SDKs from a single schema.",
+        "Define your data model once. Generate OpenAPI, JSON Schema, Protobuf, typed SDKs, and more from a single schema.",
     }),
   }),
   component: HomePage,
